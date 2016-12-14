@@ -8,5 +8,6 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="lib" path="lib/mockito-all-1.8.5.jar"/>
 	<classpathentry kind="lib" path="lib/org.eclipse.jgit-0.9.3.jar"/>
+	<classpathentry kind="lib" path="C:/Jess71p2/Jess71p2/lib/jsr94.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
