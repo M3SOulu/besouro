@@ -5,7 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
+import besouro.model.Jacoco;
 import besouro.classification.besouro.BesouroEpisodeClassifierStream;
 import besouro.classification.randomHeuristic.RandomHeuristicTDDConformance;
 import besouro.classification.zorro.ZorroEpisodeClassifierStream;
@@ -14,6 +14,7 @@ import besouro.model.Action;
 import besouro.model.Episode;
 import besouro.persistence.ActionFileStorage;
 import besouro.persistence.EpisodeFileStorage;
+import besouro.persistence.jacocofilestorage;
 import besouro.persistence.GitRecorder;
 import besouro.stream.ActionOutputStream;
 import besouro.stream.EpisodeListener;
@@ -31,6 +32,7 @@ public class ProgrammingSession implements ActionOutputStream {
 	private EpisodeFileStorage randomHeuristicEpisodesStorage;
 	private EpisodeFileStorage disagreementsStorage;
 	private EpisodeFileStorage besouroEpisodesStorage;
+	private jacocofilestorage jacocoStorage;
 	
 	private EpisodeFileStorage userCommentsEpisodesStorage;
 	
@@ -40,6 +42,7 @@ public class ProgrammingSession implements ActionOutputStream {
 	private File disagreementsFile;
 	private File besouroEpisodeFile;
 	private File userCommentsFile;
+	private File jacocoFile;
 
 	private GitRecorder git;
 
@@ -71,6 +74,8 @@ public class ProgrammingSession implements ActionOutputStream {
 		
 		actionsFile = new File(sessionDir, "actions.txt");
 		actionStorage = new ActionFileStorage(actionsFile);
+		jacocoFile = new File(sessionDir, "jacoco.txt");
+		jacocoStorage = new jacocofilestorage(jacocoFile);
 		
 		zorroEpisodesFile = new File(sessionDir, "zorroEpisodes.txt");
 		zorroEpisodesStorage = new EpisodeFileStorage(zorroEpisodesFile);
@@ -112,6 +117,8 @@ public class ProgrammingSession implements ActionOutputStream {
 		zorroClassifier.addAction(action);
 		randomHeuristicClassifier.addAction(action);
 		besouroClassifier.addAction(action);
+		Jacoco jacocoAction = new Jacoco();
+		jacocoStorage.addAction(jacocoAction);
 		git.addAction(action);
 	}
 
