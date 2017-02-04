@@ -42,7 +42,7 @@ public class ProgrammingSession implements ActionOutputStream {
 	private File disagreementsFile;
 	private File besouroEpisodeFile;
 	private File userCommentsFile;
-	private File jacocoFile;
+	public static File jacocoFile;
 
 	private GitRecorder git;
 

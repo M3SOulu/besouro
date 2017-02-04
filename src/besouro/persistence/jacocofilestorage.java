@@ -1,6 +1,7 @@
 package besouro.persistence;
 
 import java.io.BufferedReader;
+import besouro.measure.CoverageMeter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -50,6 +51,14 @@ public class jacocofilestorage implements jacocoOutputStream {
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
+	}
+
+	public File getFile() {
+		return file;
+	}
+
+	public void setFile(File file) {
+		this.file = file;
 	}
 
 	

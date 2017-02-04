@@ -4,7 +4,11 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-	 public  class Jacoco {
+import org.jacoco.core.analysis.IClassCoverage;
+
+import besouro.measure.CoverageMeter;
+
+	 public  class Jacoco  {
 	 
 	 	private Date clock;
 	 
@@ -29,7 +33,7 @@ import java.util.Date;
 	 		return getClass().getSimpleName() + " " + getClock().getTime();
 	 	}
 	 
-	 
+	 	
 	 
 	 
 	 

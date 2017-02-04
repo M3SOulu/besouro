@@ -22,4 +22,13 @@ Export-Package: besouro.listeners,
  besouro.stream
 Bundle-ClassPath: .,
  lib/org.eclipse.jgit-0.9.3.jar,
- lib/jess.jar
+ lib/jess.jar,
+ lib/asm-5.2.jar,
+ lib/jacocoagent.jar,
+ lib/jacocoant.jar,
+ lib/org.jacoco.agent-0.7.8.201612092310.jar,
+ lib/org.jacoco.ant-0.7.8.201612092310.jar,
+ lib/org.jacoco.core-0.7.8.201612092310.jar,
+ lib/org.jacoco.report-0.7.8.201612092310.jar,
+ lib/jsr94.jar,
+ lib/mockito-all-1.8.5.jar
