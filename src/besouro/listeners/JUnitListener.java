@@ -1,9 +1,13 @@
 package besouro.listeners;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+
 import besouro.measure.CoverageMeter;
+import besouro.measure.totallines;
+
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -29,7 +33,6 @@ import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 
 import besouro.measure.CoverageMeter;
-import besouro.measure.ReportGenerator;
 import besouro.model.UnitTestAction;
 import besouro.model.UnitTestCaseAction;
 import besouro.model.UnitTestSessionAction;
@@ -43,24 +46,18 @@ public class JUnitListener extends TestRunListener {
 		this.stream = stream;
 	}
 
-	/*private String getbinPath() {
-		IWorkbenchWindow win = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
-
-		IWorkbenchPage page = win.getActivePage();
-		if (page != null) {
-			IEditorPart editor = page.getActiveEditor();
-			if (editor != null) {
-				IEditorInput input = editor.getEditorInput();
-				if (input instanceof IFileEditorInput) {
-					String fullFileName = ((IFileEditorInput) input).getFile().getLocation().toOSString();
-					String binPath = fullFileName.substring(0, fullFileName.lastIndexOf("src")) + "bin/";
-					return binPath;
-				}
-			}
-		}
-		return null;
-	}
-*/
+	/*
+	 * private String getbinPath() { IWorkbenchWindow win =
+	 * PlatformUI.getWorkbench().getActiveWorkbenchWindow();
+	 * 
+	 * IWorkbenchPage page = win.getActivePage(); if (page != null) {
+	 * IEditorPart editor = page.getActiveEditor(); if (editor != null) {
+	 * IEditorInput input = editor.getEditorInput(); if (input instanceof
+	 * IFileEditorInput) { String fullFileName = ((IFileEditorInput)
+	 * input).getFile().getLocation().toOSString(); String binPath =
+	 * fullFileName.substring(0, fullFileName.lastIndexOf("src")) + "bin/";
+	 * return binPath; } } } return null; }
+	 */
 	@Override
 	public void sessionFinished(ITestRunSession session) {
 
@@ -72,34 +69,38 @@ public class JUnitListener extends TestRunListener {
 		}
 
 		String workspace = ResourcesPlugin.getWorkspace().getRoot().getLocation().toString();
-		  String project = session.getLaunchedProject().getProject().getName().toString();
-		  String pathToBin = workspace + "/" + project + "/bin/";    
+		String project = session.getLaunchedProject().getProject().getName().toString();
+		String pathToBin = workspace + "/" + project + "/bin/";
+		String pathToSrc = workspace + "/" + project + "/src/";
 		if (isSuccessfull) {
 			File folder = new File(pathToBin);
-			  File[] listOfFiles = folder.listFiles();
+			File[] listOfFiles = folder.listFiles();
+			totallines cnum = new totallines();
+			try {
+				cnum.Calculatenumberfile(pathToSrc);
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			for (int i = 0; i < listOfFiles.length; i++) {
+				if (listOfFiles[i].isDirectory()) {
+					String sourcefile = listOfFiles[i].toString();
+					if (!(sourcefile.contains("Test"))) {
+						String var = sourcefile;
+						System.out.print(var);
+						CoverageMeter coverageMeter = new CoverageMeter();
+						try {
+							coverageMeter.execute(var);
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
 
-			      for (int i = 0; i < listOfFiles.length; i++) {
-			         if (listOfFiles[i].isDirectory()) {
-			          String sourcefile =listOfFiles[i].toString();
-			          if (!(sourcefile.contains("Test")))
-			          {
-			        	  String var = sourcefile;
-			        	  System.out.print(var);
-			        	  CoverageMeter coverageMeter = new CoverageMeter();
-			  			try {
-			  				coverageMeter.execute(var);
-			  			} catch (IOException e) {
-			  				// TODO Auto-generated catch block
-			  				e.printStackTrace();
-			  			}
-			          }
-			   
-			 
-			        }
-			        
-			       
-			      }
-			
+				}
+
+			}
+
 			// String projectlocation = ResourcesPlugin.getWorkspace().
 
 		}
@@ -115,8 +116,6 @@ public class JUnitListener extends TestRunListener {
 		stream.addAction(action);
 
 	}
-
-
 
 	private Collection<UnitTestCaseAction> getTestFileActions(ITestElement session, IJavaProject project) {
 

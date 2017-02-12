@@ -6,7 +6,6 @@
 	<classpathentry kind="src" path="test"/>
 	<classpathentry kind="src" path="lib"/>
 	<classpathentry exported="true" kind="lib" path="lib/org.eclipse.jgit-0.9.3.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/jess.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/asm-5.2.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/jacocoagent.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/jacocoant.jar"/>
@@ -14,8 +13,9 @@
 	<classpathentry exported="true" kind="lib" path="lib/org.jacoco.ant-0.7.8.201612092310.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/org.jacoco.core-0.7.8.201612092310.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/org.jacoco.report-0.7.8.201612092310.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/jsr94.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/mockito-all-1.8.5.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="lib" path="C:/Users/amit/Eclipse_PDE/Jess71p2/lib/jess.jar"/>
+	<classpathentry kind="lib" path="C:/Users/amit/Eclipse_PDE/Jess71p2/lib/jsr94.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
