@@ -1,6 +1,7 @@
 package besouro.listeners;
 
 import java.util.Date;
+import java.io.IOException;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.jface.text.DocumentEvent;
@@ -20,6 +21,7 @@ import besouro.measure.JavaStatementMeter;
 import besouro.model.FileOpenedAction;
 import besouro.plugin.Activator;
 import besouro.stream.ActionOutputStream;
+
 
 
 public class WindowListener implements IWindowListener, IPartListener, IDocumentListener {
@@ -55,7 +57,18 @@ public class WindowListener implements IWindowListener, IPartListener, IDocument
 			IWorkbenchPage activePage = activeWindows[i].getActivePage();
 			if (activePage != null) {
 				activePage.addPartListener(this);
-				registerFileOpenAction(activePage.getActiveEditor());
+				try {
+					registerFileOpenAction(activePage.getActiveEditor());
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				try {
+					registerFileOpenAction(activePage.getActiveEditor());
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				
 			}
 
@@ -71,7 +84,12 @@ public class WindowListener implements IWindowListener, IPartListener, IDocument
 	}
 
 	public void partOpened(IWorkbenchPart part) {
-		registerFileOpenAction(part);
+		try {
+			registerFileOpenAction(part);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public void partActivated(IWorkbenchPart part) {
@@ -106,7 +124,7 @@ public class WindowListener implements IWindowListener, IPartListener, IDocument
 //		}
 //	}
 
-	private void registerFileOpenAction(IWorkbenchPart part) {
+	private void registerFileOpenAction(IWorkbenchPart part) throws IOException {
 
 		if (part instanceof ITextEditor) {
 
@@ -120,6 +138,8 @@ public class WindowListener implements IWindowListener, IPartListener, IDocument
 				FileOpenedAction action = new FileOpenedAction(new Date(), file.getName());
 				
 				JavaStatementMeter meter = this.measurer.measureJavaFile(file);
+				//CoverageMeter coverageMeter = new CoverageMeter();
+				//coverageMeter.execute(file.getLocation().toFile().toString());
 				
 				action.setFileSize((int) file.getLocation().toFile().length());
 				action.setIsTestEdit(meter.isTest());
