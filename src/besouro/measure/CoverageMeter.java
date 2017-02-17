@@ -38,7 +38,6 @@ public class CoverageMeter implements ICoverageVisitor {
 		try {
 			FileWriter writer = new FileWriter(jacocooFile, true);
 			String name = coverage.getName().toString();
-
 			writer.append(name + "  ");
 			writer.write("\n");
 			int j = Integer.valueOf(coverage.getInstructionCounter().getTotalCount());
@@ -86,7 +85,6 @@ public class CoverageMeter implements ICoverageVisitor {
 			writer.write("----------------------------------------------------------");
 			writer.write("\n");
 			writer.flush();
-
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
