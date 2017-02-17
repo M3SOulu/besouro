@@ -68,6 +68,7 @@ public class totallines {
 
 			writer.write("\n");
 			writer.write("----------------------------------------------------------");
+			
 			writer.write("\n");
 			writer.flush();
 
@@ -85,6 +86,8 @@ public class totallines {
 		}
 	}
 
+	
+	
 	public String analyzeLine(String sCurrentLine, boolean sameLine) {
 
 		if (commentStarted && sCurrentLine.contains("*/")) {
